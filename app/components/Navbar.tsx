@@ -9,6 +9,7 @@ export default function Navbar() {
         </Link>
         <div className="flex gap-6 text-sm font-medium text-gray-600">
           <Link href="/" className="hover:text-gray-900">Home</Link>
+          <Link href="/core" className="hover:text-gray-900">Core</Link>
           <Link href="/docs" className="hover:text-gray-900">Docs</Link>
         </div>
       </div>
