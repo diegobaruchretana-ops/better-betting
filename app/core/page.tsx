@@ -114,8 +114,7 @@ export default function CorePage() {
         Core Agent
       </h1>
       <p className="mt-3 text-gray-500">
-        Enter a match to generate a simulated betting analysis.
-      </p>
+Type any football or NFL match to generate a structured betting analysis with reasoning, a recommendation, and a confidence level. Output is simulated for demo purposes.      </p>
 
       {/* Intake form */}
       <div className="mt-10 flex gap-3">
