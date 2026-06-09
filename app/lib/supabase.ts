@@ -13,3 +13,10 @@ export type CoreOutput = {
   confidence: string;
   created_at: string;
 };
+
+export type ResearchOutput = {
+  id: string;
+  title: string;
+  notes: string;
+  created_at: string;
+};

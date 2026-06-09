@@ -1,5 +1,40 @@
 const sections = [
   {
+    id: "week2",
+    week: "Week 2",
+    title: "Research + Benchmarking Dashboard",
+    content: [
+      {
+        heading: "Overview",
+        body: "The Research page (/research) provides a full competitive-intelligence dashboard: a competitor intake form, a filterable benchmarking table, benchmark cards for key players, global product examples, a Mexico localization brief, and a color-coded risk map.",
+      },
+      {
+        heading: "Simulated Content (this week)",
+        body: "All competitor data, benchmark cards, global examples, risk descriptions, and localization text are statically defined in the page component. No AI model or live data source is used. The purpose is to establish the research UI and Supabase pipeline before connecting live content in a future week.",
+      },
+      {
+        heading: "Research Prompt / Logic",
+        body: "The 10 seed competitors were chosen to represent the full competitive landscape: direct sportsbooks (Pinnacle, Bet365, Caliente), betting infrastructure (Betfair Exchange), aggregators (OddsChecker), prediction models (Infogol, WhoScored), and informal substitutes (Telegram groups, Reddit, SofaScore). The benchmark cards highlight the five most strategically relevant players. Global examples were selected to cover EU, US, and AU markets with distinct monetization models.",
+      },
+      {
+        heading: "Filters & Search",
+        body: "The competitors table supports real-time name search and type-based filtering. New entries added via the intake form are immediately reflected in both filter options.",
+      },
+      {
+        heading: "Persistence",
+        body: "Research summaries can be saved to Supabase (table: research_outputs, columns: id, title, notes, created_at). The five most recent saves are shown in the dashboard widget below the save form and refresh automatically after a successful insert.",
+      },
+      {
+        heading: "Important Note",
+        body: "All generated text this week is SIMULATED. No real AI model, live odds feed, or scraped data is used. The purpose is to establish the UI and data pipeline before connecting live intelligence sources in a future week.",
+      },
+      {
+        heading: "Coding Agent Prompt",
+        body: "This page was built with Claude Code using a single scoped prompt covering: intake form with validation, pre-seeded competitor table with search and type filter, benchmark cards, global examples, Mexico localization section, color-coded risk map, Supabase save to research_outputs, a saved-research widget, and this docs entry. The agent was instructed to build only that scope and nothing extra.",
+      },
+    ],
+  },
+  {
     id: "week1",
     week: "Week 1",
     title: "Generative Core Agent",
