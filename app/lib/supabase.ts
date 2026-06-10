@@ -20,3 +20,12 @@ export type ResearchOutput = {
   notes: string;
   created_at: string;
 };
+
+export type CompetitorRecord = {
+  id: string;
+  name: string;
+  type: string;
+  strength: string;
+  weakness: string;
+  created_at: string;
+};

@@ -1,75 +1,88 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { supabase, type ResearchOutput } from "../lib/supabase";
+import { supabase, type CompetitorRecord, type ResearchOutput } from "../lib/supabase";
 
-type Competitor = {
-  name: string;
-  type: string;
-  strength: string;
-  weakness: string;
-};
-
-const SEED_COMPETITORS: Competitor[] = [
+const SEED_COMPETITORS: CompetitorRecord[] = [
   {
+    id: "seed-pinnacle",
     name: "Pinnacle",
     type: "Sportsbook",
     strength: "Best odds in market, never limits winning bettors",
     weakness: "No bonuses, restricted in many countries including Mexico",
+    created_at: "",
   },
   {
+    id: "seed-bet365",
     name: "Bet365",
     type: "Sportsbook",
     strength: "Massive market coverage, live betting and streaming",
     weakness: "Aggressively limits or bans sharp accounts",
+    created_at: "",
   },
   {
+    id: "seed-betfair-exchange",
     name: "Betfair Exchange",
     type: "Betting Exchange",
     strength: "Peer-to-peer model enables lay betting and in-play trading",
     weakness: "Commission on winnings, complex interface for new users",
+    created_at: "",
   },
   {
+    id: "seed-oddschecker",
     name: "OddsChecker",
     type: "Odds Comparison",
     strength: "Aggregates lines from 30+ books in real time",
     weakness: "Pure comparison tool — no analysis or betting context",
+    created_at: "",
   },
   {
+    id: "seed-infogol",
     name: "Infogol",
     type: "Prediction Model",
     strength: "xG-based match scores with clean, accessible UI",
     weakness: "Black-box model with no reasoning shown to the user",
+    created_at: "",
   },
   {
+    id: "seed-whoscored",
     name: "WhoScored",
     type: "Stats Site",
     strength: "Deep tactical ratings and player performance data",
     weakness: "No betting angle — data needs manual interpretation",
+    created_at: "",
   },
   {
+    id: "seed-telegram-tipster-groups",
     name: "Telegram Tipster Groups",
     type: "Tipster Community",
     strength: "Free tips, large Spanish-language communities, instant reach",
     weakness: "Zero accountability, high noise, no performance tracking",
+    created_at: "",
   },
   {
+    id: "seed-reddit-r-sportsbook",
     name: "Reddit r/sportsbook",
     type: "Community Forum",
     strength: "Collective wisdom, real bankroll tracking threads",
     weakness: "Very low signal-to-noise ratio, English-dominant",
+    created_at: "",
   },
   {
+    id: "seed-sofascore",
     name: "SofaScore",
     type: "Stats App",
     strength: "Live scores, lineups, and match stats in one place",
     weakness: "Not betting-focused; odds integration is superficial",
+    created_at: "",
   },
   {
+    id: "seed-caliente",
     name: "Caliente",
     type: "Sportsbook",
     strength: "Dominant Mexican brand, OXXO/SPEI deposits, Liga MX coverage",
     weakness: "Margins are high; limits winners quickly",
+    created_at: "",
   },
 ];
 
@@ -175,10 +188,28 @@ const SEVERITY_STYLES: Record<RiskSeverity, string> = {
   Low: "bg-green-50 text-green-700 border border-green-200",
 };
 
-const ALL_TYPES = Array.from(new Set(SEED_COMPETITORS.map((c) => c.type))).sort();
+function makeCompetitorKey(competitor: Pick<CompetitorRecord, "name" | "type">) {
+  return `${competitor.name.trim().toLowerCase()}|${competitor.type.trim().toLowerCase()}`;
+}
+
+function mergeCompetitors(...groups: CompetitorRecord[][]) {
+  const seen = new Set<string>();
+  const merged: CompetitorRecord[] = [];
+
+  for (const group of groups) {
+    for (const competitor of group) {
+      const key = makeCompetitorKey(competitor);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      merged.push(competitor);
+    }
+  }
+
+  return merged;
+}
 
 export default function ResearchPage() {
-  const [competitors, setCompetitors] = useState<Competitor[]>(SEED_COMPETITORS);
+  const [competitors, setCompetitors] = useState<CompetitorRecord[]>(SEED_COMPETITORS);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("All");
 
@@ -201,15 +232,58 @@ export default function ResearchPage() {
   }, []);
 
   useEffect(() => {
-    fetchRecent();
-  }, [fetchRecent]);
+    let active = true;
 
-  function handleAddCompetitor() {
+    (async () => {
+      const [recentResult, competitorsResult] = await Promise.all([
+        supabase
+          .from("research_outputs")
+          .select("id, title, notes, created_at")
+          .order("created_at", { ascending: false })
+          .limit(5),
+        supabase
+          .from("competitors")
+          .select("id, name, type, strength, weakness, created_at")
+          .order("created_at", { ascending: false }),
+      ]);
+
+      if (!active) return;
+
+      if (recentResult.data) {
+        setRecentResearch(recentResult.data as ResearchOutput[]);
+      }
+
+      if (competitorsResult.data) {
+        setCompetitors(mergeCompetitors(competitorsResult.data as CompetitorRecord[], SEED_COMPETITORS));
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  async function handleAddCompetitor() {
     if (!form.name.trim()) return;
-    setCompetitors((prev) => [
-      { name: form.name.trim(), type: form.type.trim() || "Other", strength: form.strength.trim(), weakness: form.weakness.trim() },
-      ...prev,
-    ]);
+
+    const newCompetitor = {
+      name: form.name.trim(),
+      type: form.type.trim() || "Other",
+      strength: form.strength.trim(),
+      weakness: form.weakness.trim(),
+    };
+
+    const { data, error } = await supabase
+      .from("competitors")
+      .insert(newCompetitor)
+      .select("id, name, type, strength, weakness, created_at")
+      .single();
+
+    if (error || !data) {
+      return;
+    }
+
+    setCompetitors((prev) => mergeCompetitors([data as CompetitorRecord], prev));
     setForm({ name: "", type: "", strength: "", weakness: "" });
   }
 
@@ -361,7 +435,7 @@ export default function ResearchPage() {
                 </tr>
               ) : (
                 filtered.map((c, i) => (
-                  <tr key={`${c.name}-${i}`} className="hover:bg-gray-50 transition-colors">
+                  <tr key={c.id || `${c.name}-${i}`} className="hover:bg-gray-50 transition-colors">
                     <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{c.name}</td>
                     <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{c.type}</td>
                     <td className="px-4 py-3 text-gray-600">{c.strength}</td>
