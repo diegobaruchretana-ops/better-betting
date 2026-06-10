@@ -62,13 +62,15 @@ export default function CorePage() {
   const [saveError, setSaveError] = useState("");
   const [recent, setRecent] = useState<CoreOutput[]>([]);
 
-  const fetchRecent = useCallback(async () => {
-    const { data } = await supabase
+  const fetchRecent = useCallback(() => {
+    void supabase
       .from("core_outputs")
       .select("id, match, created_at")
       .order("created_at", { ascending: false })
-      .limit(3);
-    if (data) setRecent(data as CoreOutput[]);
+      .limit(3)
+      .then(({ data }) => {
+        if (data) setRecent(data as CoreOutput[]);
+      });
   }, []);
 
   useEffect(() => {
