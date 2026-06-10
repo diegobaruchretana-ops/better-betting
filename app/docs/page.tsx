@@ -9,24 +9,24 @@ const sections = [
         body: "The Research page (/research) provides a full competitive-intelligence dashboard: a competitor intake form, a filterable benchmarking table, benchmark cards for key players, global product examples, a Mexico localization brief, and a color-coded risk map.",
       },
       {
-        heading: "Simulated Content (this week)",
-        body: "All competitor data, benchmark cards, global examples, risk descriptions, and localization text are statically defined in the page component. No AI model or live data source is used. The purpose is to establish the research UI and Supabase pipeline before connecting live content in a future week.",
+        heading: "Research Logic",
+        body: "The research methodology follows a structured competitive-landscape framework. The 10 seed competitors were manually selected to cover every category a betting-advice product competes against: direct sportsbooks (Pinnacle, Bet365, Caliente), betting infrastructure (Betfair Exchange), aggregators (OddsChecker), xG-based prediction models (Infogol, WhoScored), stats apps (SofaScore), and informal substitutes (Telegram tipster groups, Reddit r/sportsbook). Strength and weakness fields were written by hand based on publicly available product knowledge — no scraping or API was used. The five benchmark cards highlight the most strategically relevant players for product positioning. Global examples (Betegy, Forebet, Betmate, SBRodds, Handicapper.com) were chosen to represent distinct monetization models across EU, AU, and US markets.",
       },
       {
-        heading: "Research Prompt / Logic",
-        body: "The 10 seed competitors were chosen to represent the full competitive landscape: direct sportsbooks (Pinnacle, Bet365, Caliente), betting infrastructure (Betfair Exchange), aggregators (OddsChecker), prediction models (Infogol, WhoScored), and informal substitutes (Telegram groups, Reddit, SofaScore). The benchmark cards highlight the five most strategically relevant players. Global examples were selected to cover EU, US, and AU markets with distinct monetization models.",
+        heading: "Simulated / Manually Researched Content",
+        body: "All competitor entries, benchmark cards, global product examples, risk descriptions, and Mexico localization text are statically defined in app/research/page.tsx. No AI model, live odds feed, or external API is called by the /research page. The content was manually researched and written for this week. The purpose is to establish the research UI and Supabase pipeline before connecting live intelligence sources in a future week.",
+      },
+      {
+        heading: "Supabase Tables",
+        body: "Two tables are used by the Research Dashboard. (1) competitors — stores each competitor entry with columns: id (uuid, primary key), name (text), type (text), strength (text), weakness (text), created_at (timestamptz). On page load, all saved competitors are fetched and merged with the 10 hardcoded seed entries; duplicates are deduplicated by name+type key. (2) research_outputs — stores free-form research saves with columns: id (uuid, primary key), title (text), notes (text), created_at (timestamptz). The five most recent rows are shown in the Recent Saved Research widget and refresh automatically after each insert.",
+      },
+      {
+        heading: "Bug Fix: Add to Research Persistence",
+        body: "In the initial Week 2 build, the Add to Research form added new competitors to local component state only — entries were lost on page reload. This was fixed by wiring the form's submit handler to insert each new entry into the Supabase competitors table before updating local state. The returned row (with its server-assigned id and created_at) is now used to update the table, so persisted competitors survive reloads and appear for all sessions.",
       },
       {
         heading: "Filters & Search",
         body: "The competitors table supports real-time name search and type-based filtering. New entries added via the intake form are immediately reflected in both filter options.",
-      },
-      {
-        heading: "Persistence",
-        body: "Research summaries can be saved to Supabase (table: research_outputs, columns: id, title, notes, created_at). The five most recent saves are shown in the dashboard widget below the save form and refresh automatically after a successful insert.",
-      },
-      {
-        heading: "Important Note",
-        body: "All generated text this week is SIMULATED. No real AI model, live odds feed, or scraped data is used. The purpose is to establish the UI and data pipeline before connecting live intelligence sources in a future week.",
       },
       {
         heading: "Coding Agent Prompt",
