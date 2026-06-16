@@ -29,3 +29,12 @@ export type CompetitorRecord = {
   weakness: string;
   created_at: string;
 };
+
+export type PricingScenario = {
+  id: string;
+  name: string;
+  assumptions: string;
+  monthly_revenue: number;
+  annual_revenue: number;
+  created_at: string;
+};

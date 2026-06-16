@@ -1,5 +1,40 @@
 const sections = [
   {
+    id: "week3",
+    week: "Week 3",
+    title: "Product Architecture & Pricing Simulator",
+    content: [
+      {
+        heading: "Overview",
+        body: "Week 3 adds two new pages. /product presents a feature map organized into three categories (Analysis, History & Saving, Alerts & Extras), three pricing tier cards (Free / Pro / Premium), and two customer segments mapped to those tiers. /pricing is an interactive revenue simulator with a live-updating calculator, a Conservative / Optimistic scenario toggle, an assumptions table, and a Supabase-backed save/display workflow.",
+      },
+      {
+        heading: "Revenue Calculation Logic",
+        body: "Monthly revenue = (free customers × free price) + (pro customers × pro price) + (premium customers × premium price). Annual revenue = monthly × 12. All values update immediately on every keystroke — no submit button, no page reload. Prices are editable inputs defaulting to Free $0, Pro $99, Premium $199.",
+      },
+      {
+        heading: "Scenario Toggle",
+        body: "Two scenarios are available: Conservative (Free 100, Pro 20, Premium 5 customers) and Optimistic (Free 500, Pro 100, Premium 30 customers). Switching a scenario resets the customer inputs to the scenario's defaults. Prices are not reset by the toggle — they remain editable independently.",
+      },
+      {
+        heading: "Assumptions Table",
+        body: "The table reflects whatever is currently in the calculator inputs: price per tier, customers per tier, and the fixed months constant (12). It updates live along with the revenue numbers.",
+      },
+      {
+        heading: "Simulated Assumptions — Important Note",
+        body: "All numbers on the /pricing page are invented assumptions for this week's build. Customer counts (Conservative: 100 / 20 / 5, Optimistic: 500 / 100 / 30) and prices ($0 / $99 / $199) are not based on real market data. They are illustrative figures used to demonstrate the calculator UI and the Supabase save pipeline. Do not treat them as business projections.",
+      },
+      {
+        heading: "Supabase Table: pricing_scenarios",
+        body: "Columns: id (uuid, primary key, gen_random_uuid()), name (text), assumptions (text — stores a JSON string with scenario, prices, customers, and months), monthly_revenue (numeric), annual_revenue (numeric), created_at (timestamptz, default now()). RLS: SELECT and INSERT are both open to the anon role so the browser client can read and write without authentication.",
+      },
+      {
+        heading: "Coding Agent Prompt",
+        body: "These pages were built with Claude Code using a single scoped prompt covering: /product feature map, three tier cards, two customer segments; /pricing live calculator, scenario toggle, assumptions table, Supabase save form, saved-scenarios list; Navbar links; supabase.ts PricingScenario type; and this docs entry. The agent was instructed to build only that scope and nothing extra.",
+      },
+    ],
+  },
+  {
     id: "week2",
     week: "Week 2",
     title: "Research + Benchmarking Dashboard",
