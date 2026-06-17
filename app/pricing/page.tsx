@@ -39,6 +39,7 @@ export default function PricingPage() {
     customers.pro * prices.pro +
     customers.premium * prices.premium;
   const annual = monthly * 12;
+  const totalCustomers = customers.free + customers.pro + customers.premium;
 
   async function fetchScenarios() {
     const { data } = await supabase
@@ -166,7 +167,7 @@ export default function PricingPage() {
           ))}
         </div>
 
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">
               Monthly Revenue
@@ -179,6 +180,12 @@ export default function PricingPage() {
             </p>
             <p className="text-4xl font-bold text-gray-900">{fmt(annual)}</p>
             <p className="text-xs text-gray-400 mt-1">monthly × 12</p>
+          </div>
+          <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">
+              Total customers
+            </p>
+            <p className="text-4xl font-bold text-gray-900">{totalCustomers.toLocaleString()}</p>
           </div>
         </div>
       </section>
