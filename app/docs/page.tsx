@@ -9,24 +9,28 @@ const sections = [
         body: "Week 3 adds two new pages. /product presents a feature map organized into three categories (Analysis, History & Saving, Alerts & Extras), three pricing tier cards (Free / Pro / Premium), and two customer segments mapped to those tiers. /pricing is an interactive revenue simulator with a live-updating calculator, a Conservative / Optimistic scenario toggle, an assumptions table, and a Supabase-backed save/display workflow.",
       },
       {
+        heading: "Product Architecture",
+        body: "The pricing simulator is built with client-side React state for prices, customer counts, scenario selection, and live revenue totals. The existing minimalist layout, Navbar, and Footer are preserved; only the /pricing page contains the live calculator and Supabase save workflow, while /product remains a static feature map.",
+      },
+      {
         heading: "Revenue Calculation Logic",
         body: "Monthly revenue = (free customers × free price) + (pro customers × pro price) + (premium customers × premium price). Annual revenue = monthly × 12. All values update immediately on every keystroke — no submit button, no page reload. Prices are editable inputs defaulting to Free $0, Pro $99, Premium $199.",
       },
       {
         heading: "Scenario Toggle",
-        body: "Two scenarios are available: Conservative (Free 100, Pro 20, Premium 5 customers) and Optimistic (Free 500, Pro 100, Premium 30 customers). Switching a scenario resets the customer inputs to the scenario's defaults. Prices are not reset by the toggle — they remain editable independently.",
+        body: "Two scenarios are available: Conservative (Free 100, Pro 20, Premium 5 customers) and Optimistic (Free 500, Pro 100, Premium 30 customers). Switching a scenario resets the customer counts to those defaults, but does not reset the tier prices. The toggle is the only control that changes the customer-count assumptions.",
       },
       {
-        heading: "Assumptions Table",
-        body: "The table reflects whatever is currently in the calculator inputs: price per tier, customers per tier, and the fixed months constant (12). It updates live along with the revenue numbers.",
-      },
-      {
-        heading: "Simulated Assumptions — Important Note",
-        body: "All numbers on the /pricing page are invented assumptions for this week's build. Customer counts (Conservative: 100 / 20 / 5, Optimistic: 500 / 100 / 30) and prices ($0 / $99 / $199) are not based on real market data. They are illustrative figures used to demonstrate the calculator UI and the Supabase save pipeline. Do not treat them as business projections.",
+        heading: "Pricing Tiers",
+        body: "There are three pricing tiers: Free ($0/mo), Pro ($99/mo), and Premium ($199/mo). Users can edit the tier prices directly in the calculator inputs while the scenario toggle only affects customer assumptions.",
       },
       {
         heading: "Supabase Table: pricing_scenarios",
-        body: "Columns: id (uuid, primary key, gen_random_uuid()), name (text), assumptions (text — stores a JSON string with scenario, prices, customers, and months), monthly_revenue (numeric), annual_revenue (numeric), created_at (timestamptz, default now()). RLS: SELECT and INSERT are both open to the anon role so the browser client can read and write without authentication.",
+        body: "Columns: id (uuid, primary key, gen_random_uuid()), name (text), assumptions (text — stores a JSON string with scenario, prices, customers, and months), monthly_revenue (numeric), annual_revenue (numeric), created_at (timestamptz, default now()). The browser client reads and writes this table so saved scenarios can be displayed immediately in the Saved Scenarios list.",
+      },
+      {
+        heading: "Simulated Assumptions — Important Note",
+        body: "All numbers on the /pricing page are invented assumptions for this week's build. Customer counts (Conservative: 100 / 20 / 5, Optimistic: 500 / 100 / 30) and prices (Free $0, Pro $99, Premium $199) are not based on real market data. They are illustrative figures used to demonstrate the calculator UI and the Supabase save pipeline.",
       },
       {
         heading: "Coding Agent Prompt",
