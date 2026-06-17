@@ -23,6 +23,15 @@ The `/research` page adds a structured research layer on top of the core agent. 
 
 Two Supabase tables back this feature: `research_outputs` (stores generated research sessions) and `competitors` (stores the competitor/substitute rows added during a session).
 
+## Week 3 — Product Architecture & Pricing Simulator
+
+Week 3 adds two new pages: `/product` and `/pricing`.
+
+- **/product** — static feature map with three pricing tiers (Free / Pro / Premium) and two customer segments mapped to those tiers.
+- **/pricing** — interactive revenue calculator with live monthly and annual revenue totals, a scenario toggle (Conservative / Optimistic), an assumptions table, and the ability to save pricing scenarios to Supabase.
+- **Supabase table:** `pricing_scenarios` stores saved scenario names, input assumptions, monthly and annual revenue totals, and timestamps.
+- **Simulated assumptions:** all pricing numbers this week are illustrative and not based on real market data.
+
 ## Tech Stack
 
 - Next.js (App Router)
