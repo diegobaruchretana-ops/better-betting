@@ -16,6 +16,12 @@ function fmt(n: number) {
   return n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 }
 
+function normalizeNumberInput(value: string) {
+  const parsed = Number(value);
+  if (value.trim() === "" || Number.isNaN(parsed)) return 0;
+  return Math.max(0, Math.trunc(parsed));
+}
+
 export default function PricingPage() {
   const [scenario, setScenario] = useState<ScenarioKey>("conservative");
 
@@ -135,7 +141,7 @@ export default function PricingPage() {
                     min={0}
                     value={prices[tier]}
                     onChange={(e) =>
-                      setPrices((p) => ({ ...p, [tier]: Math.max(0, Number(e.target.value)) }))
+                      setPrices((p) => ({ ...p, [tier]: normalizeNumberInput(e.target.value) }))
                     }
                     className={inputClass}
                   />
@@ -147,7 +153,7 @@ export default function PricingPage() {
                     min={0}
                     value={customers[tier]}
                     onChange={(e) =>
-                      setCustomers((c) => ({ ...c, [tier]: Math.max(0, Number(e.target.value)) }))
+                      setCustomers((c) => ({ ...c, [tier]: normalizeNumberInput(e.target.value) }))
                     }
                     className={inputClass}
                   />
