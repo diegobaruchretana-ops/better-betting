@@ -1,40 +1,112 @@
-const roadmap = [
-  { week: 0, label: "Setup" },
-  { week: 1, label: "Generative Core" },
-  { week: 2, label: "Memory Layer" },
-  { week: 3, label: "Multi-step Agent" },
-  { week: 4, label: "Polish" },
-  { week: 5, label: "Final Demo" },
+import Link from "next/link";
+
+const benefits = [
+  {
+    title: "AI-Powered Analysis",
+    body: "Get a structured betting analysis for any match — odds context, trends, and a clear recommendation — in seconds.",
+  },
+  {
+    title: "Market Intelligence",
+    body: "Benchmark competitors, surface positioning gaps, and understand the landscape before you build or bet.",
+  },
+  {
+    title: "Revenue Modeling",
+    body: "Simulate pricing scenarios across tiers, toggle optimistic vs. conservative assumptions, and project growth.",
+  },
+  {
+    title: "Marketing Engine",
+    body: "Generate brand assets, social posts, video scripts, and A/B test headlines — all from one dashboard.",
+  },
+];
+
+const pages = [
+  {
+    href: "/core",
+    label: "Core Advisor",
+    description: "Enter any match and get a structured AI analysis with a confidence score.",
+  },
+  {
+    href: "/research",
+    label: "Research Dashboard",
+    description: "Competitor benchmarking, global examples, risk map, and Mexico localization brief.",
+  },
+  {
+    href: "/product",
+    label: "Product Architecture",
+    description: "Feature map across three categories and three pricing tier cards.",
+  },
+  {
+    href: "/pricing",
+    label: "Pricing Simulator",
+    description: "Live revenue calculator with scenario toggle and Supabase-backed save.",
+  },
+  {
+    href: "/marketing",
+    label: "Marketing Engine",
+    description: "Brand system, persona, A/B headlines, social posts, video scripts, and campaign calendar.",
+  },
 ];
 
 export default function Home() {
   return (
     <div className="mx-auto max-w-4xl px-6 py-20">
-      <h1 className="text-5xl font-bold tracking-tight text-gray-900">
-        Betting Advisor
-      </h1>
-      <p className="mt-4 text-xl text-gray-500">
-        AI-powered sports betting analysis
-      </p>
-      <p className="mt-6 max-w-2xl text-gray-600 leading-relaxed">
-        Betting Advisor is a student project exploring how large language models
-        can assist with sports betting analysis. It combines generative AI,
-        memory systems, and multi-step agents to surface insights and help
-        reason about odds, trends, and value bets.
-      </p>
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <section className="text-center py-12">
+        <h1 className="text-5xl font-bold tracking-tight text-gray-900 leading-tight">
+          Stop Guessing.<br />Start Winning.
+        </h1>
+        <p className="mt-5 text-xl text-gray-500 max-w-xl mx-auto leading-relaxed">
+          Betting Advisor is an AI-powered analysis engine for serious sports bettors — built on
+          data, not vibes.
+        </p>
+        <div className="mt-8">
+          <Link
+            href="/core"
+            className="inline-block rounded-lg bg-gray-900 px-7 py-3.5 text-sm font-semibold text-white hover:bg-gray-700 transition-colors"
+          >
+            Try the Core Advisor →
+          </Link>
+        </div>
+      </section>
 
-      <section className="mt-16">
-        <h2 className="text-2xl font-semibold text-gray-900">Roadmap</h2>
-        <ul className="mt-6 space-y-3">
-          {roadmap.map(({ week, label }) => (
-            <li key={week} className="flex items-center gap-4">
-              <span className="w-20 text-sm font-medium text-gray-400">
-                Week {week}
-              </span>
-              <span className="text-gray-700">{label}</span>
-            </li>
+      {/* ── Benefits ─────────────────────────────────────────── */}
+      <section className="mt-20">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">
+          What it does
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {benefits.map((b) => (
+            <div
+              key={b.title}
+              className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+            >
+              <p className="text-sm font-semibold text-gray-900 mb-2">{b.title}</p>
+              <p className="text-sm text-gray-500 leading-relaxed">{b.body}</p>
+            </div>
           ))}
-        </ul>
+        </div>
+      </section>
+
+      {/* ── Pages ────────────────────────────────────────────── */}
+      <section className="mt-20">
+        <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">
+          Explore the app
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {pages.map((p) => (
+            <Link
+              key={p.href}
+              href={p.href}
+              className="group rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:border-gray-400 hover:shadow-md transition-all"
+            >
+              <p className="text-sm font-semibold text-gray-900 group-hover:text-gray-700 mb-1">
+                {p.label}{" "}
+                <span className="text-gray-400 font-normal">→</span>
+              </p>
+              <p className="text-sm text-gray-500 leading-relaxed">{p.description}</p>
+            </Link>
+          ))}
+        </div>
       </section>
     </div>
   );

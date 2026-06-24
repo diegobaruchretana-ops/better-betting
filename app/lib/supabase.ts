@@ -38,3 +38,11 @@ export type PricingScenario = {
   annual_revenue: number;
   created_at: string;
 };
+
+export type MarketingAsset = {
+  id: string;
+  type: string;
+  title: string;
+  content: string;
+  created_at: string;
+};

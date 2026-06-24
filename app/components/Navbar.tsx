@@ -13,6 +13,7 @@ export default function Navbar() {
           <Link href="/research" className="hover:text-gray-900">Research</Link>
           <Link href="/product" className="hover:text-gray-900">Product</Link>
           <Link href="/pricing" className="hover:text-gray-900">Pricing</Link>
+          <Link href="/marketing" className="hover:text-gray-900">Marketing</Link>
           <Link href="/docs" className="hover:text-gray-900">Docs</Link>
         </div>
       </div>

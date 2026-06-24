@@ -1,5 +1,44 @@
 const sections = [
   {
+    id: "week4",
+    week: "Week 4",
+    title: "Marketing Engine & Content System",
+    content: [
+      {
+        heading: "Overview",
+        body: "Week 4 adds two deliverables: (1) a redesigned homepage (/), rebuilt as a proper product landing page with a hero, benefit cards, and navigation to all app sections; (2) the Marketing Engine page (/marketing), which contains a full content system — brand identity, a target persona, landing page copy, an A/B headline test, 10 social posts, 3 video scripts, a 14-day campaign calendar, and a Supabase-backed asset save/list workflow.",
+      },
+      {
+        heading: "Simulated Content — Important Note",
+        body: "All marketing content on /marketing is manually written and statically defined in app/marketing/page.tsx. No AI model, external API, or content generation service is called. The persona, social posts, video scripts, brand system, and copy blocks are invented for this week's build to demonstrate the UI and Supabase pipeline before wiring a live content engine in a future week.",
+      },
+      {
+        heading: "A/B Headline Test Logic",
+        body: "Two headline variants are displayed side by side. Each has a Vote button and a live vote count stored in React state (starting at 0). Clicking Vote increments that headline's count immediately — no page reload, no server round-trip, pure client-side state update via useState. The winner is computed inline: if voteA > voteB → 'Winner: Headline A'; if voteB > voteA → 'Winner: Headline B'; if equal → 'Tie'. The winning card receives a green border ring.",
+      },
+      {
+        heading: "Copy Button Logic",
+        body: "Each social post card and video script card has a Copy button. On click it calls navigator.clipboard.writeText() with the card's text, adds the card's index to a Set stored in React state (copiedPosts or copiedScripts), and shows a 'Copied!' label. After 2 seconds, the index is removed from the Set and the button reverts to 'Copy'. Independent Sets for posts and scripts mean copying one does not affect the other.",
+      },
+      {
+        heading: "Content Sections",
+        body: "The page contains 9 labelled sections in order: (1) Brand System — name, tagline, tone of voice, color swatches; (2) Target Persona — Tyler Rodriguez, age 22, with behavior, goals, and pain points; (3) Landing Page Copy — headline, subheadline, benefit bullets, CTA line; (4) A/B Headline Test — two options with live voting; (5) Social Posts — 10 cards with Copy buttons; (6) Video Scripts — 3 scripts with Copy buttons; (7) 14-Day Campaign Calendar — grid of 14 day cards; (8) Save Marketing Asset — form with type dropdown, title, content, Save button; (9) Saved Assets — live-refreshing list of saved rows.",
+      },
+      {
+        heading: "Supabase Table: marketing_assets",
+        body: "Columns: id (uuid, primary key, gen_random_uuid()), type (text — one of: social_post, video_script, landing_copy, persona, brand, other), title (text), content (text), created_at (timestamptz, default now()). Two Row Level Security policies are required: a SELECT policy granting anon role access using (true), and an INSERT policy granting anon role access with check (true). RLS must be enabled on the table or both policies have no effect. The page fetches the 10 most recent rows on mount and after each successful insert.",
+      },
+      {
+        heading: "Homepage Redesign",
+        body: "app/page.tsx was rewritten as a server component (no 'use client') with three sections: a hero (headline, subheadline, primary CTA button linking to /core), a 2×2 benefits grid ('What it does'), and a 2-column navigation grid linking to all five app pages (/core, /research, /product, /pricing, /marketing). The existing Navbar and Footer are unchanged; the Navbar was updated to include the Marketing link.",
+      },
+      {
+        heading: "Coding Agent Prompt",
+        body: "These pages were built with Claude Code using a single scoped prompt covering: homepage hero/benefits/nav-cards, /marketing with all 9 sections, Navbar Marketing link, MarketingAsset type in supabase.ts, and this docs entry. The agent was instructed to build only that scope and nothing extra.",
+      },
+    ],
+  },
+  {
     id: "week3",
     week: "Week 3",
     title: "Product Architecture & Pricing Simulator",
