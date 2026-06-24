@@ -32,6 +32,15 @@ Week 3 adds two new pages: `/product` and `/pricing`.
 - **Supabase table:** `pricing_scenarios` stores saved scenario names, input assumptions, monthly and annual revenue totals, and timestamps.
 - **Simulated assumptions:** all pricing numbers this week are illustrative and not based on real market data.
 
+## Week 4 — Marketing Engine & Homepage Upgrade
+
+Week 4 adds a redesigned homepage and a new marketing content system.
+
+- **Upgraded homepage** — a clearer hero section with a headline, benefits, and CTA, plus navigation cards to the main app pages.
+- **/marketing** — a full content workspace with a brand system, target persona, landing page copy, 10 social posts, 3 video scripts, a 14-day campaign calendar, an A/B headline test with live winner tracking and vote percentages, copy/export buttons, and the ability to save marketing assets to Supabase.
+- **Supabase table:** `marketing_assets` stores saved asset type, title, content, and timestamps.
+- **Simulated content:** all marketing copy and assets are manually written and simulated for this week.
+
 ## Tech Stack
 
 - Next.js (App Router)
