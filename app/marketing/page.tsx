@@ -146,6 +146,7 @@ export default function MarketingPage() {
   const [votes, setVotes] = useState([0, 0]);
   const [copiedPosts, setCopiedPosts] = useState<Set<number>>(new Set());
   const [copiedScripts, setCopiedScripts] = useState<Set<number>>(new Set());
+  const [copiedAllPosts, setCopiedAllPosts] = useState(false);
 
   const [assetType, setAssetType] = useState(ASSET_TYPES[0]);
   const [assetTitle, setAssetTitle] = useState("");
@@ -192,6 +193,13 @@ export default function MarketingPage() {
     navigator.clipboard.writeText(text);
     setter((prev) => new Set([...prev, index]));
     setTimeout(() => setter((prev) => { const s = new Set(prev); s.delete(index); return s; }), 2000);
+  }
+
+  function copyAllPosts() {
+    const allPosts = SOCIAL_POSTS.join("\n\n");
+    navigator.clipboard.writeText(allPosts);
+    setCopiedAllPosts(true);
+    setTimeout(() => setCopiedAllPosts(false), 2000);
   }
 
   async function handleSave() {
@@ -388,7 +396,15 @@ export default function MarketingPage() {
 
       {/* ── 5. Social Posts ───────────────────────────────────── */}
       <section className="mt-12">
-        <h2 className="text-xl font-semibold text-gray-900 mb-1">Social Posts</h2>
+        <div className="flex items-center justify-between gap-4 mb-1">
+          <h2 className="text-xl font-semibold text-gray-900">Social Posts</h2>
+          <button
+            onClick={copyAllPosts}
+            className="shrink-0 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+          >
+            {copiedAllPosts ? "Copied all" : "Copy all posts"}
+          </button>
+        </div>
         <p className="text-sm text-gray-500 mb-4">10 posts for Instagram, X, and TikTok captions aimed at young sports bettors.</p>
         <div className="space-y-3">
           {SOCIAL_POSTS.map((post, i) => (
