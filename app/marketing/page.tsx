@@ -180,6 +180,8 @@ export default function MarketingPage() {
     setVotes((v) => v.map((count, i) => (i === index ? count + 1 : count)));
   }
 
+  const totalVotes = votes[0] + votes[1];
+
   function winnerLabel() {
     if (votes[0] > votes[1]) return "Winner: Headline A";
     if (votes[1] > votes[0]) return "Winner: Headline B";
@@ -362,7 +364,12 @@ export default function MarketingPage() {
                 >
                   Vote
                 </button>
-                <span className="text-2xl font-bold text-gray-900">{votes[i]}</span>
+                <div>
+                  <span className="text-2xl font-bold text-gray-900">{votes[i]}</span>
+                  <p className="text-xs text-gray-400">
+                    {totalVotes === 0 ? "0%" : `${Math.round((votes[i] / totalVotes) * 100)}%`}
+                  </p>
+                </div>
                 {votes[0] !== votes[1] && votes[i] > votes[1 - i] && (
                   <span className="text-xs font-semibold text-green-700 bg-green-50 border border-green-200 rounded px-2 py-0.5">
                     Winning
@@ -375,7 +382,7 @@ export default function MarketingPage() {
         <p className="mt-3 text-sm text-gray-500">
           Current result:{" "}
           <span className="font-semibold text-gray-900">{winnerLabel()}</span>
-          {" "}({votes[0]} vs {votes[1]} votes)
+          {" "}({votes[0]} vs {votes[1]} votes) - {totalVotes} total vote{totalVotes === 1 ? "" : "s"}
         </p>
       </section>
 
