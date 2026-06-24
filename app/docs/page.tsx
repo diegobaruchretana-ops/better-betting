@@ -13,24 +13,28 @@ const sections = [
         body: "All marketing content on /marketing is manually written and statically defined in app/marketing/page.tsx. No AI model, external API, or content generation service is called. The persona, social posts, video scripts, brand system, and copy blocks are invented for this week's build to demonstrate the UI and Supabase pipeline before wiring a live content engine in a future week.",
       },
       {
-        heading: "A/B Headline Test Logic",
-        body: "Two headline variants are displayed side by side. Each has a Vote button and a live vote count stored in React state (starting at 0). Clicking Vote increments that headline's count immediately — no page reload, no server round-trip, pure client-side state update via useState. The winner is computed inline: if voteA > voteB → 'Winner: Headline A'; if voteB > voteA → 'Winner: Headline B'; if equal → 'Tie'. The winning card receives a green border ring.",
+        heading: "Homepage Upgrade",
+        body: "The upgraded homepage communicates the Betting Advisor product through a simple hero section with a headline, subheadline, and a primary CTA that routes to /core. Below it, a benefits grid explains what the product does, and a navigation grid links to the main app areas (/core, /research, /product, /pricing, and /marketing). The existing minimalist style and the existing Navbar/Footer remain intact.",
       },
       {
-        heading: "Copy Button Logic",
+        heading: "/marketing Page Sections",
+        body: "The Marketing Engine page is organized into nine sections in order: Brand System (name, tagline, tone, colors), Target Persona (behavior, goals, pain points), Landing Page Copy (headline, subheadline, benefits, CTA), A/B Headline Test, 10 Social Posts, 3 Video Scripts, a 14-Day Campaign Calendar, a Save Marketing Asset form, and a Saved Assets list.",
+      },
+      {
+        heading: "A/B Headline Test Logic",
+        body: "Two headline variants are displayed side by side. Each has a Vote button and a live vote count stored in React state (starting at 0). Clicking Vote increments that headline's count immediately and the winner is recomputed inline: if voteA > voteB → 'Winner: Headline A'; if voteB > voteA → 'Winner: Headline B'; if equal → 'Tie'. The winning card receives a green border ring. Each headline also displays its share of total votes as a live percentage, and the result line shows the total number of votes cast.",
+      },
+      {
+        heading: "Copy / Export Buttons",
         body: "Each social post card and video script card has a Copy button. On click it calls navigator.clipboard.writeText() with the card's text, adds the card's index to a Set stored in React state (copiedPosts or copiedScripts), and shows a 'Copied!' label. After 2 seconds, the index is removed from the Set and the button reverts to 'Copy'. Independent Sets for posts and scripts mean copying one does not affect the other.",
       },
       {
-        heading: "Content Sections",
-        body: "The page contains 9 labelled sections in order: (1) Brand System — name, tagline, tone of voice, color swatches; (2) Target Persona — Tyler Rodriguez, age 22, with behavior, goals, and pain points; (3) Landing Page Copy — headline, subheadline, benefit bullets, CTA line; (4) A/B Headline Test — two options with live voting; (5) Social Posts — 10 cards with Copy buttons; (6) Video Scripts — 3 scripts with Copy buttons; (7) 14-Day Campaign Calendar — grid of 14 day cards; (8) Save Marketing Asset — form with type dropdown, title, content, Save button; (9) Saved Assets — live-refreshing list of saved rows.",
+        heading: "Save to Supabase",
+        body: "The Save Marketing Asset form collects a type, title, and content string. On submit, it inserts a row into the Supabase marketing_assets table and then reloads the most recent saved assets list so new entries appear immediately without a page refresh.",
       },
       {
         heading: "Supabase Table: marketing_assets",
         body: "Columns: id (uuid, primary key, gen_random_uuid()), type (text — one of: social_post, video_script, landing_copy, persona, brand, other), title (text), content (text), created_at (timestamptz, default now()). Two Row Level Security policies are required: a SELECT policy granting anon role access using (true), and an INSERT policy granting anon role access with check (true). RLS must be enabled on the table or both policies have no effect. The page fetches the 10 most recent rows on mount and after each successful insert.",
-      },
-      {
-        heading: "Homepage Redesign",
-        body: "app/page.tsx was rewritten as a server component (no 'use client') with three sections: a hero (headline, subheadline, primary CTA button linking to /core), a 2×2 benefits grid ('What it does'), and a 2-column navigation grid linking to all five app pages (/core, /research, /product, /pricing, /marketing). The existing Navbar and Footer are unchanged; the Navbar was updated to include the Marketing link.",
       },
       {
         heading: "Coding Agent Prompt",
