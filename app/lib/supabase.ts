@@ -46,3 +46,13 @@ export type MarketingAsset = {
   content: string;
   created_at: string;
 };
+
+export type ChatSession = {
+  id: string;
+  intake: Record<string, string>;
+  messages: Record<string, unknown>[];
+  flagged: boolean;
+  rating: string | null;
+  status: string;
+  created_at: string;
+};

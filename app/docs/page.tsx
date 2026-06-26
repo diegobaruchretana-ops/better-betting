@@ -1,5 +1,44 @@
 const sections = [
   {
+    id: "week5",
+    week: "Week 5",
+    title: "Public Chatbot / Guided Assistant",
+    content: [
+      {
+        heading: "Overview",
+        body: "Week 5 adds a guided chat interface at /chat. The page walks the user through a 3-question intake flow (sport/match, risk comfort, and goal), then unlocks a free-form chat where every message is processed through a guardrail check before a simulated response is generated. Chat sessions can be saved to Supabase, rated with thumbs up/down, and browsed in a recent-sessions list.",
+      },
+      {
+        heading: "3-Question Intake Flow",
+        body: "Before normal chat is available, the assistant asks three questions in sequence: (1) What sport or match are you interested in? (2) What is your risk comfort — Low, Medium, or High? (3) What do you want to know? Q2 is answered via Quick-reply buttons (Low / Medium / High) to prevent free-text ambiguity. Answers are stored in React state as an intake object and shape every subsequent response. Normal chat is locked until all three questions are answered.",
+      },
+      {
+        heading: "Guardrail Rules",
+        body: "Before every assistant response, checkGuardrail(message) scans the user's message for any of these keywords or phrases: \"guaranteed\", \"guarantee\", \"sure bet\", \"sure win\", \"lock\", \"can't lose\", \"cant lose\", \"win back\", \"recover my losses\", \"all my money\", \"bet everything\". A match on any keyword bypasses generateResponse entirely and returns a fixed Responsible Gambling message urging the user to bet for fun only, never to recover losses, and to contact a helpline if needed. The session's flagged flag is set to true.",
+      },
+      {
+        heading: "Human Checkpoint",
+        body: "When a session is flagged by the guardrail, its status is set to 'needs_review' when saved to Supabase (unflagged sessions use status 'completed'). This is the data hook for a future admin review dashboard — no admin UI is built this week.",
+      },
+      {
+        heading: "Response Logic — Simulated",
+        body: "generateResponse(intake, message) returns a three-part structured reply: a Read section (recent form / xG / market movement), a Suggestion section tailored to the user's chosen risk level (Low → Double Chance / favorite + draw; Medium → BTTS or 1X2; High → handicap or first-half market), and a closing disclaimer that the output is simulated. Template selection is seeded from message.length and the first character code of the message, so different messages produce different responses while remaining deterministic. No external API, AI model, or live odds feed is called.",
+      },
+      {
+        heading: "Feedback Rating",
+        body: "Thumbs up (👍) and thumbs down (👎) buttons appear below each assistant message once the intake is complete. Clicking a button highlights it and updates the session-level rating in React state. When the session is saved, the most recently selected rating (thumbs_up or thumbs_down) is written to the rating column of the chat_sessions row. Ratings in the recent-sessions list are shown as the corresponding emoji.",
+      },
+      {
+        heading: "Supabase Table: chat_sessions",
+        body: "Columns: id (uuid, primary key, default gen_random_uuid()), intake (jsonb — sport, risk, goal), messages (jsonb — array of message objects with id, role, content, rating), flagged (boolean, default false), rating (text — 'thumbs_up', 'thumbs_down', or null), status (text — 'completed' or 'needs_review'), created_at (timestamptz, default now()). Row Level Security must be disabled on this table so the anon key can insert and select without policy configuration.",
+      },
+      {
+        heading: "Coding Agent Prompt",
+        body: "This page was built with Claude Code using a single scoped prompt covering: chat UI with message window, 3-question intake, guardrail check, simulated generateResponse, thumbs up/down rating, Save chat button with Supabase insert, recent-sessions list, Navbar Chat link, ChatSession type in supabase.ts, and this docs entry. The agent was instructed to build only that scope and nothing extra.",
+      },
+    ],
+  },
+  {
     id: "week4",
     week: "Week 4",
     title: "Marketing Engine & Content System",
