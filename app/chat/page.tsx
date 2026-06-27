@@ -118,7 +118,14 @@ export default function ChatPage() {
   const [phase, setPhase] = useState<"intake" | "chat">("intake");
   const [intakeStep, setIntakeStep] = useState(0);
   const [intake, setIntake] = useState<Intake>({ sport: "", risk: "", goal: "" });
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(() => [
+    {
+      id: makeId(),
+      role: "assistant",
+      content: INTAKE_QUESTIONS[0],
+      rating: null,
+    },
+  ]);
   const [input, setInput] = useState("");
   const [flagged, setFlagged] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
@@ -127,17 +134,6 @@ export default function ChatPage() {
   const [sessionRating, setSessionRating] = useState<string | null>(null);
 
   const bottomRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setMessages([
-      {
-        id: makeId(),
-        role: "assistant",
-        content: INTAKE_QUESTIONS[0],
-        rating: null,
-      },
-    ]);
-  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
