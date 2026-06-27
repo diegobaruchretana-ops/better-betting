@@ -41,6 +41,17 @@ Week 4 adds a redesigned homepage and a new marketing content system.
 - **Supabase table:** `marketing_assets` stores saved asset type, title, content, and timestamps.
 - **Simulated content:** all marketing copy and assets are manually written and simulated for this week.
 
+## Week 5 — Public Chatbot & Guided Assistant
+
+Week 5 adds a new conversational experience at `/chat`.
+
+- **/chat** — a public chatbot experience with a guided assistant flow, a three-question intake, and a free-form chat window for follow-up questions.
+- **Three-question intake** — the assistant collects the sport or match, the user's risk comfort level, and the goal of the session before generating a response.
+- **Simulated response logic** — responses are structured into a read section, a suggestion section, and a short reason line, all generated locally with deterministic templates and no external API calls.
+- **Responsible-gambling guardrail** — the assistant checks for risky language and, if needed, pauses the conversation with a human checkpoint message instead of continuing with a betting recommendation.
+- **Save and feedback** — chat sessions and thumbs-up/down feedback are saved to Supabase in the `chat_sessions` table for later review.
+- **Simulated output:** all chatbot replies are simulated this week and clearly labeled for demo purposes.
+
 ## Tech Stack
 
 - Next.js (App Router)
