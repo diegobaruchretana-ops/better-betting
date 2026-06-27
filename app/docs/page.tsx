@@ -9,12 +9,16 @@ const sections = [
         body: "Week 5 adds a guided chat interface at /chat. The page walks the user through a 3-question intake flow (sport/match, risk comfort, and goal), then unlocks a free-form chat where every message is processed through a guardrail check before a simulated response is generated. Chat sessions can be saved to Supabase, rated with thumbs up/down, and browsed in a recent-sessions list.",
       },
       {
+        heading: "Simulated Output — Important Note",
+        body: "All chatbot output this week is simulated. The /chat experience uses deterministic local templates and React state only — no external API, no live odds feed, and no model inference is called.",
+      },
+      {
         heading: "3-Question Intake Flow",
         body: "Before normal chat is available, the assistant asks three questions in sequence: (1) What sport or match are you interested in? (2) What is your risk comfort — Low, Medium, or High? (3) What do you want to know? Q2 is answered via Quick-reply buttons (Low / Medium / High) to prevent free-text ambiguity. Answers are stored in React state as an intake object and shape every subsequent response. Normal chat is locked until all three questions are answered.",
       },
       {
         heading: "Guardrail Rules",
-        body: "Before every assistant response, checkGuardrail(message) scans the user's message for any of these keywords or phrases: \"guaranteed\", \"guarantee\", \"sure bet\", \"sure win\", \"lock\", \"can't lose\", \"cant lose\", \"win back\", \"recover my losses\", \"all my money\", \"bet everything\". A match on any keyword bypasses generateResponse entirely and returns a fixed Responsible Gambling message urging the user to bet for fun only, never to recover losses, and to contact a helpline if needed. The session's flagged flag is set to true.",
+        body: "Before every assistant response, checkGuardrail(message) scans the user's message for any of these keywords or phrases: \"guaranteed\", \"guarantee\", \"sure bet\", \"sure win\", \"lock\", \"can't lose\", \"cant lose\", \"win back\", \"recover my losses\", \"all my money\", \"bet everything\". A match on any keyword bypasses generateResponse entirely and returns a fixed Responsible Gambling message that pauses the conversation, says no betting outcome is guaranteed, urges the user to bet only for entertainment, never to recover losses, and to contact a helpline if needed. The session's flagged flag is set to true.",
       },
       {
         heading: "Human Checkpoint",
