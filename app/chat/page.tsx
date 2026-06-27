@@ -84,10 +84,18 @@ function generateResponse(intake: Intake, message: string): string {
   const riskKey = risk || "Medium";
   const sugs = suggestionsByRisk[riskKey];
   const sugIdx = (message.charCodeAt(0) ?? 0) % sugs.length;
+  const riskLabel = riskKey.toLowerCase();
+  const whyLine =
+    riskKey === "Low"
+      ? `Why: For ${sport || "this matchup"}, a lower-risk approach fits because the market limits downside while still matching the current form profile.`
+      : riskKey === "High"
+        ? `Why: For ${sport || "this matchup"}, this higher-risk idea makes sense because the recent trend and matchup context suggest more upside than the baseline market reflects.`
+        : `Why: For ${sport || "this matchup"}, this balanced option suits a ${riskLabel} risk profile because it aligns with the current form and scoring context.`;
 
   return [
     reads[readIdx](sport),
     sugs[sugIdx],
+    whyLine,
     "Note: This is simulated output for demo purposes. No real odds data, AI model, or external API was used. Always bet within your limits and for entertainment only.",
   ].join("\n\n");
 }
