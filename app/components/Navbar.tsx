@@ -7,7 +7,7 @@ export default function Navbar() {
         <Link href="/" className="text-lg font-semibold text-gray-900 hover:text-gray-700">
           Betting Advisor
         </Link>
-        <div className="flex gap-6 text-sm font-medium text-gray-600">
+        <div className="flex flex-wrap gap-5 text-sm font-medium text-gray-600">
           <Link href="/" className="hover:text-gray-900">Home</Link>
           <Link href="/core" className="hover:text-gray-900">Core</Link>
           <Link href="/research" className="hover:text-gray-900">Research</Link>
@@ -15,6 +15,8 @@ export default function Navbar() {
           <Link href="/pricing" className="hover:text-gray-900">Pricing</Link>
           <Link href="/marketing" className="hover:text-gray-900">Marketing</Link>
           <Link href="/chat" className="hover:text-gray-900">Chat</Link>
+          <Link href="/dashboard" className="hover:text-gray-900">Dashboard</Link>
+          <Link href="/demo" className="hover:text-gray-900">Demo</Link>
           <Link href="/docs" className="hover:text-gray-900">Docs</Link>
         </div>
       </div>

@@ -1,5 +1,36 @@
 const sections = [
   {
+    id: "week6",
+    week: "Week 6",
+    title: "Full Integration — Demo, Dashboard & Navigation",
+    content: [
+      {
+        heading: "Overview",
+        body: "Week 6 is the integration week. No new business logic was added and no existing page logic was changed. The three deliverables are: (1) full navigation — every page (Home, Core, Research, Product, Pricing, Marketing, Chat, Dashboard, Demo, Docs) is now reachable from the shared Navbar; (2) a /demo guided walkthrough page that tours the five modules in order without touching any database; (3) a /dashboard read-only page that reads the most recent rows from every existing Supabase table and displays them grouped by module.",
+      },
+      {
+        heading: "Navbar Update",
+        body: "The shared Navbar component (app/components/Navbar.tsx) was updated to add Dashboard and Demo links. The existing ten links are: Home, Core, Research, Product, Pricing, Marketing, Chat, Dashboard, Demo, Docs. The gap was changed from gap-6 to gap-5 and flex-wrap was added so the bar wraps cleanly on narrower screens. No other layout or style change was made.",
+      },
+      {
+        heading: "/demo — Guided Walkthrough",
+        body: "A fully presentational page (no Supabase reads or writes). It renders five numbered step cards in order — Research, Core, Product & Pricing, Marketing, Chat — each with a title, one-line description, and a 'Go to this module' Next.js Link. Below the steps: an Agent Map section showing styled div boxes connected by arrow characters (Research → Core → Pricing → Marketing → Chat → Dashboard) with no external charting library; an Impact & Viability section with two cards ('Creates value' and 'Avoids harm' — the second explicitly calls out the responsible-gambling guardrail); and a Version 2 Roadmap bullet list covering live odds feed, authenticated accounts, admin review dashboard, multi-sport support, webhook alerts, and LLM upgrade.",
+      },
+      {
+        heading: "/dashboard — Read-Only Records",
+        body: "A client component ('use client') that fetches the six most recent rows (limit 5) from each existing Supabase table on mount using Promise.allSettled, so one failing table never crashes the page. Tables queried: core_outputs (match, confidence, recommendation, created_at), research_outputs (title, notes, created_at), competitors (name, type, strength, weakness), pricing_scenarios (name, monthly_revenue, annual_revenue, created_at), marketing_assets (type, title, content truncated to 80 chars, created_at), chat_sessions (intake.sport, status, flagged, created_at). Each section shows a dashed 'No records yet' empty state when the table is empty. The page never inserts, updates, or deletes any data.",
+      },
+      {
+        heading: "Docs Update — Week 6 Entry",
+        body: "This entry was added at the top of the sections array in app/docs/page.tsx (most recent first). The existing Week 1–5 entries were not modified.",
+      },
+      {
+        heading: "Coding Agent Prompt",
+        body: "This week was built with Claude Code using a single scoped prompt covering: Navbar update (Dashboard + Demo links), /demo guided walkthrough page with step cards / agent map / impact section / roadmap, /dashboard read-only page reading all six existing Supabase tables, and this docs entry. The agent was explicitly instructed not to change existing page logic, not to create new tables, and not to write any data.",
+      },
+    ],
+  },
+  {
     id: "week5",
     week: "Week 5",
     title: "Public Chatbot / Guided Assistant",
