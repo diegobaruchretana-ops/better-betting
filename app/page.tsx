@@ -59,12 +59,18 @@ export default function Home() {
           Betting Advisor is an AI-powered analysis engine for serious sports bettors — built on
           data, not vibes.
         </p>
-        <div className="mt-8">
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link
             href="/core"
             className="inline-block rounded-lg bg-gray-900 px-7 py-3.5 text-sm font-semibold text-white hover:bg-gray-700 transition-colors"
           >
             Try the Core Advisor →
+          </Link>
+          <Link
+            href="/demo"
+            className="inline-block rounded-lg bg-amber-500 px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-amber-600"
+          >
+            View the guided demo →
           </Link>
         </div>
       </section>
