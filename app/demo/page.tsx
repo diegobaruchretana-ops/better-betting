@@ -106,16 +106,16 @@ export default function Demo() {
           Follow the walkthrough below to explore the full system.
         </p>
         <div className="mt-8 flex justify-center">
-          <Link
-            href="/research"
+          <a
+            href="#steps"
             className="inline-flex items-center rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-amber-600"
           >
             Start the demo
-          </Link>
+          </a>
         </div>
       </section>
 
-      <section className="mt-16 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+      <section id="steps" className="mt-16 rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
         <div className="flex items-center justify-between gap-4">
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-[0.24em] text-gray-400">
