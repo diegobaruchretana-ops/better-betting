@@ -52,6 +52,18 @@ Week 5 adds a new conversational experience at `/chat`.
 - **Save and feedback** — chat sessions and thumbs-up/down feedback are saved to Supabase in the `chat_sessions` table for later review.
 - **Simulated output:** all chatbot replies are simulated this week and clearly labeled for demo purposes.
 
+## Week 6 — Integration Week: Navigation, Demo, and Dashboard
+
+Week 6 is an integration week focused on connecting the experience into a coherent product flow.
+
+- **Full navigation** — the app now presents a complete walkthrough across all pages, making it easier to move between research, core analysis, product/pricing, marketing, chat, and the demo experience.
+- **/demo** — a guided walkthrough page introduces the product journey with a polished startup-style layout, a step-by-step module grid, an agent map, an impact check, and a version 2 roadmap.
+- **/dashboard** — a read-only dashboard surfaces saved records from the existing Supabase tables so users can review prior analyses, research entries, pricing scenarios, marketing assets, and chat sessions in one place.
+- **Practical impact check** — the experience now shows how the product creates value for users while also incorporating responsible-gambling safety and a human-review path for flagged chat sessions.
+- **Version 2 roadmap** — the page documents the next-step product opportunities for live data, accounts, admin review, and richer multi-sport support.
+- **Integration note:** this week focused on experience cohesion and navigation rather than introducing new features or new database tables.
+- **Simulated output:** all content and flows remain simulated this week.
+
 ## Tech Stack
 
 - Next.js (App Router)
